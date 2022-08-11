@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Col, Row, Input, Typography, Radio, Select, Tag } from "antd";
 import { useDispatch } from "react-redux";
-import {
-  setFilterInput,
-  setFilterPriority,
-  setFilterStatus,
-} from "../../store/actions";
+import filtersSlice from "./filtersSlice";
 const { Search } = Input;
 export default function Filters() {
   const dispatch = useDispatch();
@@ -14,15 +10,15 @@ export default function Filters() {
   const [priority, setPriority] = useState([]);
   const handleChangeTodoInput = (e) => {
     setSearchInput(e.target.value);
-    dispatch(setFilterInput(e.target.value));
+    dispatch(filtersSlice.actions.SET_FILTER_INPUT(e.target.value));
   };
   const handleChangeTodoStatus = (e) => {
     setStatus(e.target.value);
-    dispatch(setFilterStatus(e.target.value));
+    dispatch(filtersSlice.actions.SET_FILTER_STATUS(e.target.value));
   };
   const handleChangeFilterPriority = (value) => {
     setPriority(value);
-    dispatch(setFilterPriority(value));
+    dispatch(filtersSlice.actions.SET_FILTER_PRIORITY(value));
   };
   console.log(status);
   return (

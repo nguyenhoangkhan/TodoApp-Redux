@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Col, Row, Input, Button, Select, Tag } from "antd";
 import Todo from "../Todo";
-import { addTodo, setCompletedTodo } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { todoListRemaining } from "../../store/selectors";
+import todoListSlice from "./todoListSlice";
 export default function TodoList() {
   const dispatch = useDispatch();
   const todoList = useSelector(todoListRemaining);
@@ -18,7 +18,7 @@ export default function TodoList() {
     setTodoPriority(value);
   };
   const handleSetPriority = (id) => {
-    dispatch(setCompletedTodo(id));
+    dispatch(todoListSlice.actions.SET_COMPLETED_TODO(id));
   };
   const handleAddTodo = () => {
     if (todoInput.trim() === "") {
@@ -30,7 +30,7 @@ export default function TodoList() {
       priority: todoPriority,
       completed: false,
     };
-    dispatch(addTodo(newsJobs));
+    dispatch(todoListSlice.actions.ADD_TODO(newsJobs));
 
     setTodoInput("");
   };
